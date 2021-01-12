@@ -1,0 +1,90 @@
+@startuml
+
+class Chess {
+    + play: void()
+    + {static} main()
+    - resume(): boolean
+}
+
+Chess *--> Game
+
+class Game {
+    + play(): void
+}
+
+Game *--> Turn
+Game *--> "2" Player
+Game *--> Board
+
+Turn o--> Player
+Player o--> Board
+
+class Turn {
+    + get(): Player
+    + next(); void
+}
+
+class Player {
+    + move(): void
+}
+
+class Board {
+    + checkmate(): boolean
+}
+
+Player ..> Console
+Player *--> Coordinate: "origin"
+Player *--> Coordinate: "destination"
+Player o--> Color
+
+enum Color {
+    BLACK
+    WHITE
+}
+
+class Coordinate {
+    + obtain(): void
+    - isValid(): boolean
+}
+
+class Board {
+    + isValidMove(Coordinate, Coordinate, Color): boolean
+    + move(Coordinate, Coordinate, Color): void
+}
+
+Coordinate ..> Console
+Board ..> Console
+Board *--> "8*8" Square
+Board *--> "32" Piece
+
+class Console {
+    + read(String): void
+    + write(String): void
+}
+
+Square o--> Piece
+Square *--> Coordinate
+
+class Square {
+    + hasKing(): boolean
+    + isEmpty(): boolean
+    + hasColor(Color): boolean
+    + clean(): void
+    + put(Piece): void
+    + take(): Piece
+}
+
+abstract class Piece {
+    + isValidDestination(Coordination): boolean
+}
+
+Piece o--> Color
+
+Piece <|-- Bishop
+Piece <|-- Knight
+Piece <|-- Pawns
+Piece <|-- King
+Piece <|-- Queen
+Piece <|-- Rook
+
+@enduml
