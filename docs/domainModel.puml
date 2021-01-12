@@ -1,0 +1,52 @@
+@startuml domainModel
+Chess *--> "2" Player
+Chess *--> Board
+Chess *--> Turn
+
+Player o--> Color
+Player ..> Turn
+Player ..> Board
+Piece o--> Color
+Piece o--> "1..3" Movement
+
+Piece <|-- King
+Piece <|-- Queen
+Piece <|-- Rook
+Piece <|-- Bishop
+Piece <|-- Knight
+Piece <|-- Pawns
+
+White --> King
+White --> Queen
+White --> "2" Rook
+White --> "2" Bishop
+White --> "2" Knight
+White --> "8" Pawns
+
+Black --> King
+Black --> Queen
+Black --> "2" Rook
+Black --> "2" Bishop
+Black --> "2" Knight
+Black --> "8" Pawns
+
+Player --> "0..1" Black
+Player --> "0..1" White
+
+Board *--> "8x8" Square
+Board *--> Black
+Board *--> White
+
+Square o--> Color
+Square o--> "0..1" Piece
+
+Movement <|-- Vertical
+Movement <|-- Horizontal
+Movement <|-- Diagonal
+
+enum Color {
+    BLACK,
+    WHITE
+}
+
+@enduml
